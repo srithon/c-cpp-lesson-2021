@@ -1,9 +1,8 @@
-#+TITLE: C++ Lesson
-* C Intro
-** Explicit Pointers
+#+TITLE: C Lesson
+* Explicit Pointers
 [[./media/pointers-in-c.png]]
 
-*** Java
+** Java
 #+begin_src java :classname Foo
 public class Foo {
     static void increment_int(int int_argument) {
@@ -50,7 +49,7 @@ public class Foo {
 : object int = 0
 : object int = 1
 
-*** C
+** C
 
 #+begin_src C :results output
 #include <stdio.h>
@@ -79,8 +78,8 @@ int main() {
 : dereferenced i_ptr = 1
 : i = 1
 
-** Stack vs Heap Allocation
+* Stack vs Heap Allocation
 *** NULL
-** No Garbage Collection/Reference Counting
-** No Namespaces
-** Header Files
+* No Garbage Collection/Reference Counting
+* No Namespaces
+* Header Files
