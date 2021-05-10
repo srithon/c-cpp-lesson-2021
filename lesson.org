@@ -3,6 +3,55 @@
 ** Explicit Pointers
 [[./media/pointers-in-c.png]]
 
+*** Java
+#+begin_src java :classname Foo
+public class Foo {
+    static void increment_int(int int_argument) {
+        int_argument++;
+    }
+
+    public static void main(String[] args) {
+        int i = 0;
+        System.out.println("primitive int = " + i);
+
+        increment_int(i);
+        System.out.println("primitive int = " + i);
+    }
+}
+#+end_src
+
+#+RESULTS:
+: primitive int = 0
+: primitive int = 0
+
+#+begin_src java :classname Foo
+public class Foo {
+    static class MutableInt {
+        int int_field;
+
+        public String toString() { return "" + int_field; }
+    }
+
+    static void increment_mutable_int(MutableInt int_argument) {
+        int_argument.int_field++;
+    }
+
+    public static void main(String[] args) {
+        MutableInt integer = new MutableInt();
+        System.out.println("object int = " + integer);
+
+        increment_mutable_int(integer);
+        System.out.println("object int = " + integer);
+    }
+}
+#+end_src
+
+#+RESULTS:
+: object int = 0
+: object int = 1
+
+*** C
+
 #+begin_src C :results output
 #include <stdio.h>
 
