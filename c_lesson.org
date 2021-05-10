@@ -55,7 +55,8 @@ public class Foo {
 #include <stdio.h>
 
 void increment_int(int* int_argument) {
-    (*int_argument)++;
+    ,*int_argument = *int_argument + 1;
+    // (*int_argument)++;
 }
 
 int main() {
