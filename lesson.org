@@ -1,6 +1,33 @@
 #+TITLE: C++ Lesson
 * C Intro
 ** Explicit Pointers
+#+begin_src C :results output
+#include <stdio.h>
+
+void increment_int(int* int_argument) {
+    (*int_argument)++;
+}
+
+int main() {
+    int i = 0;
+    printf("i = %d\n", i);
+
+    int* i_ptr = &i;
+    printf("i_ptr = %p\n", i_ptr);
+
+    increment_int(i_ptr);
+
+    printf("dereferenced i_ptr = %d\n", *i_ptr);
+    printf("i = %d\n", i);
+}
+#+end_src
+
+#+RESULTS:
+: i = 0
+: i_ptr = 0x7fff974e5664
+: dereferenced i_ptr = 1
+: i = 1
+
 ** Stack vs Heap Allocation
 *** NULL
 ** No Garbage Collection/Reference Counting
