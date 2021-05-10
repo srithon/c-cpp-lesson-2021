@@ -55,7 +55,7 @@ public class Foo {
 #+begin_src C :results output
 #include <stdio.h>
 
-void increment_int(int* int_argument) {
+void increment_int(int *int_argument) {
     ,*int_argument = *int_argument + 1;
     // (*int_argument)++;
 }
