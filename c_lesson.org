@@ -11,18 +11,17 @@ public class Foo {
 
     public static void main(String[] args) {
         int i = 0;
-        System.out.println("primitive int = " + i);
+        System.out.println("int BEFORE incrementing = " + i);
 
         increment_int(i);
-        System.out.println("primitive int = " + i);
+        System.out.println("int AFTER incrementing = " + i);
     }
 }
 #+end_src
 
 #+RESULTS:
-: primitive int = 0
-: primitive int = 0
-
+: int BEFORE incrementing = 0
+: int AFTER incrementing = 0
 #+begin_src java :classname Foo
 public class Foo {
     static class MutableInt {
@@ -37,17 +36,17 @@ public class Foo {
 
     public static void main(String[] args) {
         MutableInt integer = new MutableInt();
-        System.out.println("object int = " + integer);
+        System.out.println("int BEFORE incrementing = " + integer);
 
         increment_mutable_int(integer);
-        System.out.println("object int = " + integer);
+        System.out.println("int AFTER incrementing = " + integer);
     }
 }
 #+end_src
 
 #+RESULTS:
-: object int = 0
-: object int = 1
+: int BEFORE incrementing = 0
+: int AFTER incrementing = 1
 
 ** C
 
