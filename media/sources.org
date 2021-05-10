@@ -1,0 +1,3 @@
+#+TITLE: Media Sources
+
+[[https://www.geeksforgeeks.org/pointers-c-examples/][Pointers in C]]

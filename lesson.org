@@ -1,6 +1,8 @@
 #+TITLE: C++ Lesson
 * C Intro
 ** Explicit Pointers
+[[./media/pointers-in-c.png]]
+
 #+begin_src C :results output
 #include <stdio.h>
 
