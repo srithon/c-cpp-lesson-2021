@@ -80,6 +80,32 @@ int main() {
 : dereferenced i_ptr = 1
 : i = 1
 
+*** Multiple Declarations
+#+begin_src C :results output :tangle "code/multi_declaration_ptr.c"
+#include <stdio.h>
+
+int main() {
+    int i = 1,
+        j = 2;
+
+    int* i_ptr = &i,
+     // *j_ptr = &j;
+         j_ptr = &j;
+
+    printf("i: %p, j: %p", i_ptr, j_ptr);
+}
+#+end_src
+
+#+RESULTS:
+: i: 0x7ffe33997db0, j: 0x33997dac
+
+**** gcc
+With ~gcc~, this is only a warning by default
+[[./media/multi_declaration_ptr_warning_gcc.png]]
+**** g++
+With ~g++~ (the ~C++~ compiler), this throws an error by default
+[[./media/multi_declaration_ptr_error_g++.png]]
+
 * Stack vs Heap Allocation
 *** NULL
 * No Garbage Collection/Reference Counting
