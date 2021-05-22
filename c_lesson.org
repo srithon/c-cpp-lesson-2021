@@ -195,6 +195,8 @@ int main() {
     heap_allocate_another_int();
 
     printf("*i_ptr = %d", *i_ptr);
+
+    free(i_ptr);
 }
 #+end_src
 
