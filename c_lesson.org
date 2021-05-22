@@ -165,6 +165,43 @@ int main() {
 : *i_ptr = 10
 : *i_ptr = 30
 
+** Heap
+#+begin_src C :results output :tangle code/heap.c
+#include <stdio.h>
+#include <stdlib.h>
+
+static int *i_ptr;
+
+void assign_i_ptr() {
+    int *allocated_memory = malloc(sizeof(int));
+    *allocated_memory = 10;
+    i_ptr = allocated_memory;
+}
+
+void heap_allocate_another_int() {
+    int *allocated_memory = malloc(sizeof(int));
+    *allocated_memory = 100;
+}
+
+void stack_allocate_another_int() {
+    int b = 30;
+}
+
+int main() {
+    assign_i_ptr();
+    printf("*i_ptr = %d\n", *i_ptr);
+
+    stack_allocate_another_int();
+    heap_allocate_another_int();
+
+    printf("*i_ptr = %d", *i_ptr);
+}
+#+end_src
+
+#+RESULTS:
+: *i_ptr = 10
+: *i_ptr = 10
+
 * No Garbage Collection/Reference Counting
 * No Namespaces
 * Header Files
