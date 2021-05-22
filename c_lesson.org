@@ -64,7 +64,7 @@ int main() {
     int i = 0;
     printf("i = %d\n", i);
 
-    int* i_ptr = &i;
+    int *i_ptr = &i;
     printf("i_ptr = %p\n", i_ptr);
 
     increment_int(i_ptr);
