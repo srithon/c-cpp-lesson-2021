@@ -107,7 +107,64 @@ With ~g++~ (the ~C++~ compiler), this throws an error by default
 [[./media/multi_declaration_ptr_error_g++.png]]
 
 * Stack vs Heap Allocation
-*** NULL
+** Stack
+See [[https://stackoverflow.com/a/13888303]]
+*** With Static
+#+begin_src C :results output :tangle code/stack.c
+#include <stdio.h>
+
+static int *i_ptr;
+
+void assign_i_ptr() {
+    int i = 10;
+    i_ptr = &i;
+}
+
+void stack_allocate_another_int() {
+    int b = 30;
+}
+
+int main() {
+    assign_i_ptr();
+    printf("*i_ptr = %d\n", *i_ptr);
+
+    stack_allocate_another_int();
+    printf("*i_ptr = %d", *i_ptr);
+}
+#+end_src
+
+#+RESULTS:
+: *i_ptr = 10
+: *i_ptr = 30
+
+*** Without Static
+#+begin_src C :results output :tangle code/stack.c
+#include <stdio.h>
+
+void assign_i_ptr(int **i_ptr_ptr) {
+    int i = 10;
+    *i_ptr_ptr = &i;
+}
+
+void stack_allocate_another_int() {
+    int b = 30;
+}
+
+int main() {
+    int *i_ptr = NULL;
+
+    assign_i_ptr(&i_ptr);
+    printf("*i_ptr = %d\n", *i_ptr);
+
+    stack_allocate_another_int();
+    printf("*i_ptr = %d", *i_ptr);
+}
+#+end_src
+
+#+RESULTS:
+: *i_ptr = 10
+: *i_ptr = 30
+
 * No Garbage Collection/Reference Counting
 * No Namespaces
 * Header Files
