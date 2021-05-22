@@ -239,5 +239,81 @@ valgrind --leak-check=full code/heap_binary 2>&1 > /dev/null
 #+end_example
 
 * No Garbage Collection/Reference Counting
+** C
+#+begin_src C :tangle code/HeapOverflow.c :results output :noweb yes
+#include <sys/resource.h>
+void limit_memory() {
+    struct rlimit memory_limit = {
+        // set soft and hard caps to 3 MB
+        1024 * 1024 * 3,
+        1024 * 1024 * 3
+    };
+
+    setrlimit(RLIMIT_AS, &memory_limit);
+}
+
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    limit_memory();
+
+    for (int i = 0; i < 10000; i++) {
+        void *ptr = malloc(10000 * sizeof(int));
+
+        if (ptr == NULL) {
+            printf("Ran out of memory at i = %d!\n", i);
+            break;
+        }
+
+        printf("%d: %p\n", i, ptr);
+
+        // free(ptr);
+    }
+}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+0: 0x18a42a0
+1: 0x18aef00
+2: 0x18b8b50
+3: 0x18c27a0
+4: 0x18cc3f0
+5: 0x18d6040
+6: 0x18dfc90
+7: 0x18e98e0
+8: 0x18f3530
+9: 0x18fd180
+10: 0x1906dd0
+11: 0x1910a20
+12: 0x191a670
+13: 0x19242c0
+14: 0x192df10
+15: 0x1937b60
+16: 0x19417b0
+17: 0x194b400
+18: 0x1955050
+Ran out of memory at i = 19!
+#+end_example
+** Java
+#+begin_src java
+public class MemoryLeak {
+    static void heapAllocateBigArray() {
+        int[] array = new int[10000];
+    }
+
+    public static void main(String[] args) {
+        for (int i = 0; i < 10_000; i++) {
+            heapAllocateBigArray();
+        }
+    }
+}
+#+end_src
+
+#+begin_src shell
+javac code/MemoryLeak.java
+cd code
+valgrind java MemoryLeak 2>&1 > /dev/null
+#+end_src
 * No Namespaces
 * Header Files
