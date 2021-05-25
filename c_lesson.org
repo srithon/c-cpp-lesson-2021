@@ -351,3 +351,50 @@ make main
 
 #+RESULTS:
 [[./media/c_lesson_error.png]]
+** Solution
+Use *header guards*
+
+- ~header1.h~
+  #+begin_src C :tangle code/c_project/solution/header1.h :main no
+  #ifndef HEADER_1
+  #define HEADER_1
+
+  #include <stdio.h>
+
+  void print_something() {
+      printf("something");
+  }
+
+  #endif
+  #+end_src
+- ~header2.h~
+  #+begin_src C :tangle code/c_project/solution/header2.h :main no
+  #ifndef HEADER_2
+  #define HEADER_2
+  #include "header1.h"
+
+  void print_something_twice() {
+      print_something();
+      print_something();
+  }
+
+  #endif
+  #+end_src
+- ~main.c~
+  #+begin_src C :tangle code/c_project/solution/main.c
+  #include "header1.h"
+  #include "header2.h"
+
+  int main() {
+      print_something();
+  }
+  #+end_src
+
+#+begin_src shell
+cd code/c_project/solution
+make main > /dev/null
+./main
+#+end_src
+
+#+RESULTS:
+: something
