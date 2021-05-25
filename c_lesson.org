@@ -240,7 +240,7 @@ valgrind --leak-check=full code/heap_binary 2>&1 > /dev/null
 
 * No Garbage Collection/Reference Counting
 ** C
-#+begin_src C :tangle code/HeapOverflow.c :results output :noweb yes
+#+begin_src C :tangle code/HeapOverflow.c :results output org
 #include <sys/resource.h>
 void limit_memory() {
     struct rlimit memory_limit = {
@@ -273,8 +273,7 @@ int main() {
 #+end_src
 
 #+RESULTS:
-#+begin_example
-#+end_example
+#+begin_src org
 0. 0x14a52a0
 1. 0x14aff00
 2. 0x14b9b50
@@ -295,6 +294,7 @@ int main() {
 17. 0x154c400
 18. 0x1556050
 19. Ran out of memory
+#+end_src
 ** Java
 #+begin_src java
 public class MemoryLeak {
