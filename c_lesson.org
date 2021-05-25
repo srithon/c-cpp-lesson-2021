@@ -315,5 +315,5 @@ javac code/MemoryLeak.java
 cd code
 valgrind java MemoryLeak 2>&1 > /dev/null
 #+end_src
-* No Namespaces
 * Header Files
+* [[https://stackoverflow.com/questions/25432371/how-can-one-emulate-the-c-namespace-feature-in-a-c-code][No Explicit Namespaces]]
