@@ -315,5 +315,39 @@ javac code/MemoryLeak.java
 cd code
 valgrind java MemoryLeak 2>&1 > /dev/null
 #+end_src
-* Header Files
 * [[https://stackoverflow.com/questions/25432371/how-can-one-emulate-the-c-namespace-feature-in-a-c-code][No Explicit Namespaces]]
+* Preprocessor (Header Files)
+- ~header1.h~
+  #+begin_src C :tangle code/c_project/header1.h :main no
+  #include <stdio.h>
+
+  void print_something() {
+      printf("something");
+  }
+  #+end_src
+- ~header2.h~
+  #+begin_src C :tangle code/c_project/header2.h :main no
+  #include "header1.h"
+
+  void print_something_twice() {
+      print_something();
+      print_something();
+  }
+  #+end_src
+- ~main.c~
+  #+begin_src C :tangle code/c_project/main.c
+  #include "header1.h"
+  #include "header2.h"
+
+  int main() {
+      print_something();
+  }
+  #+end_src
+
+#+begin_src shell
+cd code/c_project
+make main
+#+end_src
+
+#+RESULTS:
+[[./media/c_lesson_error.png]]
