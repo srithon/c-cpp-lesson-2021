@@ -433,3 +433,14 @@ make main > /dev/null
 
 #+RESULTS:
 : something
+* Extras
+** Void Pointers
+C "generics"
+
+#+begin_src C
+void do_something(void *something) {}
+#+end_src
+** Function-like Macros
+#+begin_src C
+#define ALLOC(type) malloc(sizeof(type))
+#+end_src
