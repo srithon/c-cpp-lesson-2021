@@ -138,7 +138,7 @@ int main() {
 : *i_ptr = 30
 
 *** Without Static
-#+begin_src C :results output :tangle code/stack.c
+#+begin_src C :results output
 #include <stdio.h>
 
 void assign_i_ptr(int **i_ptr_ptr) {
