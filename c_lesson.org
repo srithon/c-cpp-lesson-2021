@@ -466,14 +466,10 @@ make main > /dev/null
       printf("%d\n", some_variable);
   }
   #+end_src
-- ~Makefile~
-  #+begin_src Makefile :tangle code/globals/Makefile
-  main: main.c source1.c
-  #+end_src
 
 #+begin_src shell :results output verbatim
 cd code/globals
-make -s main
+gcc main.c source1.c -o main
 ./main
 #+end_src
 
