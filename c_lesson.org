@@ -433,6 +433,53 @@ make main > /dev/null
 
 #+RESULTS:
 : something
+* Global Variables
+- ~globals.h~
+  #+begin_src C :tangle code/globals/globals.h
+  #ifndef GLOBALS_H
+  #define GLOBALS_H
+
+  extern int some_variable;
+
+  void increment_variable();
+
+  #endif
+  #+end_src
+- ~source1.c~
+  #+begin_src C :tangle code/globals/source1.c
+  #include "globals.h"
+
+  int some_variable = 5;
+
+  void increment_variable() {
+      some_variable++;
+  }
+  #+end_src
+- ~main.c~
+  #+begin_src C :tangle code/globals/main.c
+  #include "globals.h"
+  #include <stdio.h>
+
+  int main() {
+      printf("%d\n", some_variable);
+      increment_variable();
+      printf("%d\n", some_variable);
+  }
+  #+end_src
+- ~Makefile~
+  #+begin_src Makefile :tangle code/globals/Makefile
+  main: main.c source1.c
+  #+end_src
+
+#+begin_src shell :results output verbatim
+cd code/globals
+make -s main
+./main
+#+end_src
+
+#+RESULTS:
+: 5
+: 6
 * Extras
 ** Void Pointers
 C "generics"
