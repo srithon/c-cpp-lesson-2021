@@ -476,6 +476,75 @@ gcc main.c source1.c -o main
 #+RESULTS:
 : 5
 : 6
+* Static
+** In File
+- ~static1.c~
+  #+begin_src C :tangle code/static1.c :main no
+  #include <stdio.h>
+
+  static int file_local_variable = 10;
+
+  static int get_file_local_variable() {
+      return file_local_variable;
+  }
+  #+end_src
+- ~static2.c~
+  #+begin_src C :tangle code/static2.c
+  int main() {
+      int try_file_local_variable = file_local_variable;
+      int try_file_local_function = get_file_local_variable();
+  }
+  #+end_src
+
+#+begin_src shell
+cd code
+gcc static1.c static2.c -o static
+./static
+#+end_src
+
+#+RESULTS:
+#+begin_example
+static2.c: In function ‘main’:
+static2.c:2:35: error: ‘file_local_variable’ undeclared (first use in this function); did you mean ‘try_file_local_variable’?
+    2 |     int try_file_local_variable = file_local_variable;
+      |                                   ^~~~~~~~~~~~~~~~~~~
+      |                                   try_file_local_variable
+static2.c:2:35: note: each undeclared identifier is reported only once for each function it appears in
+static2.c:3:35: warning: implicit declaration of function ‘get_file_local_variable’ [-Wimplicit-function-declaration]
+    3 |     int try_file_local_function = get_file_local_variable();
+      |                                   ^~~~~~~~~~~~~~~~~~~~~~~
+#+end_example
+** In Function
+#+begin_src C :results output verbatim
+#include <stdio.h>
+
+void count() {
+    // the number of times this function has been called
+    static int count = 0;
+    count++;
+    printf("Count = %d\n", count);
+}
+
+int main() {
+    for (int i = 0; i < 10; i++)
+        count();
+}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Count = 1
+Count = 2
+Count = 3
+Count = 4
+Count = 5
+Count = 6
+Count = 7
+Count = 8
+Count = 9
+Count = 10
+#+end_example
+
 * Extras
 ** Void Pointers
 C "generics"
