@@ -382,3 +382,12 @@ int main() {
 *** weak_ptr
 shared_ptr reference that does not contribute to reference count
 ** +auto_ptr+
+* Extras
+** Operator Overloading
+This is easy to overuse; only use if you really think it applies
+** friend keyword
+Treat an external function like it were a method.
+Often used in conjunction with operator overloading
+** constexpr/consteval
+Annotate functions/variables that can be evaluated at compile-time
+** Lambdas
