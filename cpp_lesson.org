@@ -247,6 +247,43 @@ g++ main2.cpp foo.cpp bar.cpp -o main2
 : Bar: this->privateMember = 10
 : Bar overridableFunction implementation called
 
+** const keyword
+#+begin_src C++
+class Foo {
+    private:
+        int j;
+    public:
+        Foo() {}
+        int get_j() const;
+        int set_j();
+};
+#+end_src
+** mutable keyword
+#+begin_src C++ :results output verbatim
+#include <iostream>
+
+class Something {
+    public:
+        mutable int x;
+        int y;
+
+        Something() : x(5), y(10) {}
+};
+
+int main() {
+    const Something s;
+    s.x = 100;
+    // s.y = 100;
+
+    std::cout << "s.x = " << s.x << std::endl;
+    std::cout << "s.y = " << s.y << std::endl;
+}
+#+end_src
+
+#+RESULTS:
+| s.x | = | 100 |
+| s.y | = |  10 |
+
 * Standard Library
 ** iostream
 #+begin_src C++ :results output verbatim :
