@@ -82,3 +82,80 @@ make -s source1
 : Did something
 : Did something else
 
+* OOP
+- ~foo.hpp~
+  #+begin_src C++ :tangle code/oop/foo.hpp :mkdirp yes :main no
+  #ifndef FOO_HPP
+  #define FOO_HPP
+
+  #include <iostream>
+
+  namespace workshop {
+      class Foo {
+          private:
+              int privateMember;
+          public:
+              Foo(int initialPrivateMember) : privateMember(initialPrivateMember) {
+                  // constructor body
+                  // do things other than member initialization
+              }
+
+              int getPrivateMember() {
+                  return this->privateMember;
+                  // return (*this).privateMember
+              }
+
+              void setPrivateMember(int newValue);
+
+              virtual void overridableFunction() {
+                  std::cout << "Foo overridableFunction implementation called" << std::endl;
+              }
+      };
+  }
+
+  #endif
+  #+end_src
+- ~foo.cpp~
+  #+begin_src C++ :tangle code/oop/foo.cpp :main no
+  #include "foo.hpp"
+
+  using namespace workshop;
+
+  void Foo::setPrivateMember(int newValue) {
+      this->privateMember = newValue;
+  }
+  #+end_src
+- ~main.cpp~
+  #+begin_src C++ :tangle code/oop/main.cpp
+  #include <iostream>
+  #include "foo.hpp"
+
+  int main() {
+      using namespace workshop;
+
+      Foo stackFoo(5);
+      std::cout << "Private member (stack) = " << stackFoo.getPrivateMember() << std::endl;
+      stackFoo.setPrivateMember(6);
+      std::cout << "Private member (stack) = " << stackFoo.getPrivateMember() << std::endl;
+
+      Foo *heapFoo = new Foo(5);
+      std::cout << "Private member (heap) = " << heapFoo->getPrivateMember() << std::endl;
+      heapFoo->setPrivateMember(6);
+      std::cout << "Private member (heap) = " << heapFoo->getPrivateMember() << std::endl;
+
+      delete heapFoo;
+  }
+  #+end_src
+
+#+begin_src shell :results output verbatim
+cd code/oop
+g++ main.cpp foo.cpp -o main
+./main
+#+end_src
+
+#+RESULTS:
+: Private member (stack) = 5
+: Private member (stack) = 6
+: Private member (heap) = 5
+: Private member (heap) = 6
+
