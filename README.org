@@ -1,0 +1,7 @@
+#+TITLE: C/C++ Lesson
+
+This was created as a guide for the language portions of the SBHS Robotics C/C++/[[https://pros.cs.purdue.edu/][PROS]] workshop
+
+Lesson outlines:
+- [[./c_lesson.org][C Section]]
+- [[./cpp_lesson.org][C++ Section]]
