@@ -1,0 +1,29 @@
+#+TITLE: C++ Lesson
+
+* new/delete
+#+begin_src C++ :results output verbatim
+#include <stdio.h>
+
+int main() {
+    for (int i = 0; i < 10; i++) {
+        int *x = new int(i);
+        printf("x = %d\n", *x);
+        delete x;
+    }
+}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+x = 0
+x = 1
+x = 2
+x = 3
+x = 4
+x = 5
+x = 6
+x = 7
+x = 8
+x = 9
+#+end_example
+
