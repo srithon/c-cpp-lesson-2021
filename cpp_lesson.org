@@ -27,3 +27,58 @@ x = 8
 x = 9
 #+end_example
 
+* Namespaces
+- ~header1.hpp~
+  #+begin_src C++ :tangle code/header1.hpp :main no
+  #ifndef HEADER1_HPP
+  #define HEADER1_HPP
+
+  namespace foo {
+      void do_something();
+  }
+
+  #endif
+  #+end_src
+- ~header2.hpp~
+  #+begin_src C++ :tangle code/header2.hpp :main no
+  #ifndef HEADER2_HPP
+  #define HEADER2_HPP
+
+  namespace foo {
+      void do_something_else();
+  }
+
+  #endif
+  #+end_src
+- ~source1.cpp~
+  #+begin_src C++ :tangle code/source1.cpp
+  #include <stdio.h>
+  #include "header1.hpp"
+  #include "header2.hpp"
+
+  void foo::do_something() {
+      printf("Did something\n");
+  }
+
+  void foo::do_something_else() {
+      printf("Did something else\n");
+  }
+
+  int main() {
+      foo::do_something();
+
+      using namespace foo;
+      do_something_else();
+  }
+  #+end_src
+
+#+begin_src shell :results output verbatim
+cd code
+make -s source1
+./source1
+#+end_src
+
+#+RESULTS:
+: Did something
+: Did something else
+
