@@ -159,3 +159,75 @@ g++ main.cpp foo.cpp -o main
 : Private member (heap) = 5
 : Private member (heap) = 6
 
+** Polymorphism
+- ~bar.hpp~
+  #+begin_src C++ :tangle code/oop/bar.hpp :main no :mkdirp yes
+  #ifndef BAR_HPP
+  #define BAR_HPP
+
+  #include "foo.hpp"
+
+  namespace workshop {
+      class Bar : public Foo {
+          public:
+              Bar() : Foo(10) {
+                  // constructor body
+              }
+
+              void barMethod();
+              // void overridableFunction() override;
+      };
+  };
+
+  #endif
+  #+end_src
+- ~bar.cpp~
+  #+begin_src C++ :tangle code/oop/bar.cpp :main no
+  #include <iostream>
+
+  #include "bar.hpp"
+
+  using namespace workshop;
+
+  void Bar::barMethod() {
+      std::cout << "Bar: this->privateMember = " << this->getPrivateMember() << std::endl;
+  }
+
+  void Bar::overridableFunction() override {
+      std::cout << "Bar overridableFunction implementation called" << std::endl;
+  }
+  #+end_src
+- ~main2.cpp~
+  #+begin_src C++ :tangle code/oop/main2.cpp :output results verbatim
+  #include <iostream>
+
+  #include "foo.hpp"
+  #include "bar.hpp"
+
+  int main() {
+      using namespace workshop;
+
+      Foo *foo = new Bar();
+      std::cout << "Private member = " << foo->getPrivateMember() << std::endl;
+
+      // condition can actually be omitted here
+      if (Bar *bar = dynamic_cast<Bar *>(foo); bar != nullptr)
+        bar->barMethod();
+
+      foo->overridableFunction();
+
+      delete foo;
+  }
+  #+end_src
+
+#+begin_src shell :results output verbatim
+cd code/oop
+g++ main2.cpp foo.cpp bar.cpp -o main2
+./main2
+#+end_src
+
+#+RESULTS:
+: Private member = 10
+: Bar: this->privateMember = 10
+: Bar overridableFunction implementation called
+
