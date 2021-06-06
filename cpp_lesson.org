@@ -253,3 +253,39 @@ int main() {
 : Hello world
 : Enter a value for j: 8
 : j = 8
+** vector
+#+begin_src C++ :tangle code/vector.cpp :results output verbatim
+#include <iostream>
+#include <vector>
+
+template <typename T>
+void print_vector(const std::vector<T> &vector) {
+    for (auto &i : vector)
+        std::cout << i << ' ';
+    std::cout << std::endl;
+}
+
+int main() {
+    auto list = std::vector<int>( {1, 2, 3, 4, 5} );
+    print_vector(list);
+
+    list.push_back(6);
+    print_vector(list);
+
+    std::cout << list[3] << std::endl;
+    std::cout << list.at(3) << std::endl;
+
+    std::cout << list[5000] << std::endl;
+    std::cout << list.at(5000) << std::endl;
+}
+#+end_src
+
+#+RESULTS:
+: 1 2 3 4 5
+: 1 2 3 4 5 6
+: 4
+: 4
+: 0
+: terminate called after throwing an instance of 'std::out_of_range'
+:   what():  vector::_M_range_check: __n (which is 5000) >= this->size() (which is 6)
+: Aborted (core dumped)
