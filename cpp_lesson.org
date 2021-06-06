@@ -231,3 +231,25 @@ g++ main2.cpp foo.cpp bar.cpp -o main2
 : Bar: this->privateMember = 10
 : Bar overridableFunction implementation called
 
+* Standard Library
+** iostream
+#+begin_src C++ :results output verbatim :
+#include <iostream>
+
+int main() {
+    std::cout << 5 << std::endl;
+    std::cout << "Hello world" << std::endl;
+
+    int j;
+    std::cout << "Enter a value for j: ";
+    std::cin >> j;
+
+    std::cout << "j = " << j << std::endl;
+}
+#+end_src
+
+#+RESULTS:
+: 5
+: Hello world
+: Enter a value for j: 8
+: j = 8
