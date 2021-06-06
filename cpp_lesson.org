@@ -82,6 +82,22 @@ make -s source1
 : Did something
 : Did something else
 
+* References
+#+begin_src C++
+struct VeryBigObject {
+    int big_array[1000];
+};
+
+void do_something_without_copying(VeryBigObject &reference) {
+    // do something
+}
+
+int main() {
+    VeryBigObject o;
+
+    do_something_without_copying(o);
+}
+#+end_src
 * OOP
 - ~foo.hpp~
   #+begin_src C++ :tangle code/oop/foo.hpp :mkdirp yes :main no
