@@ -374,6 +374,63 @@ int main() {
 #+RESULTS:
 : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
 : 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99
+** Finding Array Length
+#+begin_src C :tangle code/array_length.c :results output verbatim
+#include <stdio.h>
+
+void test_array_size(int *array) {
+    printf("== In Function ==\n");
+    printf("Total byte size: %ld\n", sizeof(array));
+    printf("Total number of elements: %ld\n", sizeof(array) / sizeof(int));
+}
+
+void test_stack_array() {
+    printf("= Stack Array =\n");
+    int stack_array[50];
+
+    printf("== In Main ==\n");
+    printf("Total byte size: %ld\n", sizeof(stack_array));
+    printf("Total number of elements: %ld\n", sizeof(stack_array) / sizeof(int));
+
+    test_array_size(stack_array);
+}
+
+void test_heap_array() {
+    printf("\n= Heap Array =\n");
+    int *heap_array = malloc(50 * sizeof(int));
+
+    printf("== In Main ==\n");
+    printf("Total byte size: %ld\n", sizeof(heap_array));
+    printf("Total number of elements: %ld\n", sizeof(heap_array) / sizeof(int));
+
+    test_array_size(heap_array);
+}
+
+int main() {
+    test_stack_array();
+    test_heap_array();
+}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+= Stack Array =
+== In Main ==
+Total byte size: 200
+Total number of elements: 50
+== In Function ==
+Total byte size: 8
+Total number of elements: 2
+
+= Heap Array =
+== In Main ==
+Total byte size: 8
+Total number of elements: 2
+== In Function ==
+Total byte size: 8
+Total number of elements: 2
+#+end_example
+
 * Preprocessor (Header Files)
 ** Problem
 - ~header1.h~
