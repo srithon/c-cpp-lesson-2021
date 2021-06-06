@@ -382,6 +382,51 @@ int main() {
 *** weak_ptr
 shared_ptr reference that does not contribute to reference count
 ** +auto_ptr+
+* Templates
+#+begin_src C++ :tangle code/templates.cpp :results output verbatim
+#include <iostream>
+
+template <typename T>
+void print_something(T something) {
+    std::cout << something << std::endl;
+}
+
+class SomeClass {
+    public:
+        int x;
+        SomeClass(int x) : x(x) {}
+};
+
+class SomeOtherClass {
+    public:
+        int x;
+        SomeOtherClass(int x) : x(x) {}
+};
+
+template <typename T>
+void print_x_member(T &something) {
+    std::cout << something.x << std::endl;
+}
+
+int main() {
+    print_something("hello");
+    print_something(100);
+
+    SomeClass a(4);
+    SomeOtherClass b(4);
+
+    print_x_member(a);
+    print_x_member(b);
+}
+#+end_src
+
+#+RESULTS:
+: hello
+: 100
+: 4
+: 4
+
+** Concepts (C++20)
 * Extras
 ** Operator Overloading
 This is easy to overuse; only use if you really think it applies
