@@ -289,3 +289,96 @@ int main() {
 : terminate called after throwing an instance of 'std::out_of_range'
 :   what():  vector::_M_range_check: __n (which is 5000) >= this->size() (which is 6)
 : Aborted (core dumped)
+* Smart Pointers
+** unique_ptr
+#+begin_src C++ :tangle code/unique_ptr.cpp :results output verbatim
+#include <iostream>
+#include <memory>
+
+class Something {
+    public:
+        int j;
+
+        Something(int initial_j_value) : j(initial_j_value) {
+            std::cout << "Called Something constructor!" << std::endl;
+        }
+
+        ~Something() {
+            std::cout << "Called Something destructor!" << std::endl;
+        }
+};
+
+int main() {
+    std::unique_ptr<Something> something_ptr = std::make_unique<Something>(100);
+    std::cout << "something_ptr->j = " << something_ptr->j << std::endl;
+
+    // auto ptr_alias = something_ptr;
+}
+#+end_src
+
+#+RESULTS:
+: Called Something constructor!
+: something_ptr->j = 100
+: Called Something destructor!
+** shared_ptr
+#+begin_src C++ :tangle code/shared_ptr.cpp :results output verbatim
+#include <iostream>
+#include <memory>
+#include <optional>
+
+class Something {
+    public:
+        int j;
+
+        Something(int initial_j_value) : j(initial_j_value) {
+            std::cout << "Called Something constructor!" << std::endl;
+        }
+
+        ~Something() {
+            std::cout << "Called Something destructor!" << std::endl;
+        }
+};
+
+class SomethingHolder {
+    std::shared_ptr<Something> something_ptr;
+    std::string tag;
+
+    public:
+        SomethingHolder(std::shared_ptr<Something> something_ptr, std::string tag) : something_ptr(something_ptr), tag(tag) {
+            std::cout << "Created SomethingHolder: " << tag << "!" << std::endl;
+        }
+
+        ~SomethingHolder() {
+            std::cout << "Destroyed SomethingHolder: " << tag << "!" << std::endl;
+        }
+};
+
+int main() {
+    std::optional<SomethingHolder> holder_1;
+
+    {
+        std::optional<SomethingHolder> holder_2;
+
+        {
+            std::shared_ptr<Something> something_ptr = std::make_shared<Something>(50);
+
+            holder_1.emplace(something_ptr, "holder_1");
+            holder_2.emplace(something_ptr, "holder_2");
+        }
+
+        std::cout << "Out of scope for something_ptr" << std::endl;
+    }
+}
+#+end_src
+
+#+RESULTS:
+: Called Something constructor!
+: Created SomethingHolder: holder_1!
+: Created SomethingHolder: holder_2!
+: Out of scope for something_ptr
+: Destroyed SomethingHolder: holder_2!
+: Destroyed SomethingHolder: holder_1!
+: Called Something destructor!
+*** weak_ptr
+shared_ptr reference that does not contribute to reference count
+** +auto_ptr+
