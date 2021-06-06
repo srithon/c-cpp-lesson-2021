@@ -106,6 +106,30 @@ With ~gcc~, this is only a warning by default
 With ~g++~ (the ~C++~ compiler), this throws an error by default
 [[./media/multi_declaration_ptr_error_g++.png]]
 
+*** Arrow Operator
+#+begin_src C :tangle "code/arrow_operator.c" :results output
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Something {
+    int f;
+};
+
+typedef struct Something Something;
+
+int main() {
+    Something something = { 4 };
+    Something *something_ptr = &something;
+
+    printf("%d\n", something.f);
+    printf("%d\n", something_ptr->f);
+}
+#+end_src
+
+#+RESULTS:
+: 4
+: 4
+
 * Stack vs Heap Allocation
 ** Stack
 See [[https://stackoverflow.com/a/13888303]]
