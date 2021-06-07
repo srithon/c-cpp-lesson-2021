@@ -1,4 +1,5 @@
 #+TITLE: C++ Lesson
+#+PROPERTY: header-args :exports both
 
 * new/delete
 #+begin_src C++ :results output verbatim

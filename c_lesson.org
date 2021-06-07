@@ -1,4 +1,6 @@
 #+TITLE: C Lesson
+#+PROPERTY: header-args :exports both
+
 * Explicit Pointers
 [[./media/pointers-in-c.png]]
 
