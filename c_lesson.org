@@ -1,5 +1,6 @@
 #+TITLE: C Lesson
 #+PROPERTY: header-args :exports both
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-bigblow.setup
 
 * Explicit Pointers
 [[./media/pointers-in-c.png]]
